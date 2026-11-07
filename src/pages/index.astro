@@ -1,16 +1,639 @@
+
 ---
+import "../styles/global.css";
+
+const projects = [
+  {
+    number: "01",
+    name: "Blackwire",
+    category: "Go · Backend Engineering",
+    description:
+      "A backend engineering project exploring service design, implementation, and reliability.",
+  },
+  {
+    number: "02",
+    name: "Quorumtrace",
+    category: "Distributed Systems · Engineering",
+    description:
+      "An independent systems project exploring architecture, implementation, and technical design.",
+  },
+  {
+    number: "03",
+    name: "Marketplace Observability Simulator",
+    category: "Observability · Distributed Systems",
+    description:
+      "A simulated marketplace environment for studying service metrics, tracing, and operational visibility.",
+  },
+  {
+    number: "04",
+    name: "Reverse Proxy",
+    category: "Networking · Backend Infrastructure",
+    description:
+      "A reverse proxy project exploring HTTP request routing and backend networking fundamentals.",
+  },
+  {
+    number: "05",
+    name: "Risk Management Dashboard",
+    category: "Data · Dashboard Engineering",
+    description:
+      "An application for presenting and exploring risk-related data through a dashboard interface.",
+  },
+  {
+    number: "06",
+    name: "RaftKV",
+    category: "Distributed Systems · Consensus",
+    description:
+      "A distributed key-value store project exploring Raft consensus, replicated state machines, and fault tolerance.",
+  },
+];
+
+const skills = [
+  {
+    category: "Languages",
+    technologies: "Go · Python · SQL",
+  },
+  {
+    category: "Backend & Data",
+    technologies: "PostgreSQL · Redis · Kafka · gRPC · REST APIs",
+  },
+  {
+    category: "Cloud & Platform",
+    technologies: "AWS · Docker · Kubernetes · Linux · CI/CD",
+  },
+  {
+    category: "Observability",
+    technologies: "Prometheus · Grafana · Logging · Distributed Tracing",
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="Rasyid Gatrawijaya — Software Engineer focused on backend infrastructure, distributed systems, and platform engineering."
+    />
+
+    <meta name="theme-color" content="#FAF9F6" />
+
+    <title>Rasyid Gatrawijaya | Software Engineer</title>
+
+    <!-- Load saved theme before the page is painted -->
+    <script is:inline>
+      (() => {
+        let theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+
+        try {
+          const saved = localStorage.getItem("rg-theme");
+
+          if (saved === "light" || saved === "dark") {
+            theme = saved;
+          }
+        } catch {
+          // Fall back to system preference.
+        }
+
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+  </head>
+
+  <body
+    class="min-h-screen bg-[var(--page-bg)] font-sans text-[var(--text-primary)] antialiased"
+  >
+    <div class="mx-auto max-w-4xl px-6 sm:px-10">
+
+      <!-- Navigation -->
+      <header
+        id="site-header"
+        class="relative flex items-center justify-between gap-4 border-b border-[var(--border)] py-6"
+      >
+        <a
+          href="/"
+          class="text-xl font-semibold tracking-tight text-[var(--text-primary)]"
+        >
+          RG
+        </a>
+
+        <!-- Navigation links -->
+        <nav
+          id="main-nav"
+          aria-label="Main navigation"
+          class="absolute inset-x-0 top-full z-40 mt-2 hidden flex-col gap-1 rounded-xl border border-[var(--border)] bg-[var(--menu-bg)] p-2 shadow-xl backdrop-blur-xl md:static md:z-auto md:ml-auto md:mt-0 md:flex md:flex-row md:items-center md:gap-6 md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-none"
+        >
+          <a
+            href="#about"
+            class="rounded-lg px-4 py-3 text-sm text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)] md:px-0 md:py-0 md:hover:bg-transparent"
+          >
+            About
+          </a>
+
+          <a
+            href="#projects"
+            class="rounded-lg px-4 py-3 text-sm text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)] md:px-0 md:py-0 md:hover:bg-transparent"
+          >
+            Projects
+          </a>
+
+          <a
+            href="#experience"
+            class="rounded-lg px-4 py-3 text-sm text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)] md:px-0 md:py-0 md:hover:bg-transparent"
+          >
+            Experience
+          </a>
+
+          <a
+            href="#skills"
+            class="rounded-lg px-4 py-3 text-sm text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)] md:px-0 md:py-0 md:hover:bg-transparent"
+          >
+            Skills
+          </a>
+
+          <a
+            href="#contact"
+            class="rounded-lg px-4 py-3 text-sm text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)] md:px-0 md:py-0 md:hover:bg-transparent"
+          >
+            Contact
+          </a>
+		  <a
+			href="/gallery/"
+			class="rounded-lg px-4 py-3 text-sm text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)] md:px-0 md:py-0 md:hover:bg-transparent"
+			>
+			Photos
+		  </a>
+        </nav>
+
+        <!-- Theme and mobile-menu controls -->
+        <div class="ml-auto flex items-center gap-2 md:ml-4">
+
+          <!-- Light / Dark toggle -->
+          <button
+            id="theme-toggle"
+            type="button"
+            aria-label="Switch to dark mode"
+            aria-pressed="false"
+            title="Toggle colour theme"
+            class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--link)]"
+          >
+            <!-- Moon: shown in light mode -->
+            <svg
+              class="theme-icon-moon h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M20.985 12.486A9 9 0 0 1 11.514 3.015a9 9 0 1 0 9.47 9.47" />
+            </svg>
+
+            <!-- Sun: shown in dark mode -->
+            <svg
+              class="theme-icon-sun h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M6.35 17.65l-1.42 1.42M19.07 4.93l-1.42 1.42" />
+            </svg>
+          </button>
+
+          <!-- Hamburger: mobile only -->
+          <button
+            id="menu-toggle"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="main-nav"
+            class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--link)] md:hidden"
+          >
+            <svg
+              id="menu-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <!-- About / Hero -->
+        <section
+          id="about"
+          class="scroll-mt-8 border-b border-[var(--border)] py-16 sm:py-20"
+        >
+          <p
+            class="mb-5 text-xs font-medium uppercase tracking-[0.15em] text-[var(--text-muted)]"
+          >
+            Software Engineering · Backend & Platform
+          </p>
+
+          <h1
+            class="text-4xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-5xl"
+          >
+            Rasyid Gatrawijaya
+          </h1>
+
+          <h2
+            class="mt-4 text-xl font-normal text-[var(--text-secondary)]"
+          >
+            Backend & Platform Engineer
+          </h2>
+
+		<!-- Biography -->
+		<div
+		class="mt-7 max-w-2xl space-y-4 text-[15px] leading-7 text-[var(--text-body)]"
+		>
+		<p class="justified-copy">
+			I'm a software engineer focused on backend infrastructure,
+			distributed systems, and developer productivity.
+			My experience spans building scalable services,
+			improving reliability, and developing engineering tooling.
+		</p>
+
+		<p class="justified-copy">
+			Previously a Software Engineer at Shopee.
+			I hold an MSc in Computer Science from the
+			University of Bath.
+		</p>
+
+		<p class="text-left">
+			Outside of engineering, I enjoy (digital) film{" "}
+			<a
+			href="/gallery/"
+			class="font-medium text-[var(--link)] underline decoration-[var(--link)]/40 underline-offset-4 transition-colors hover:text-[var(--text-primary)] hover:decoration-current"
+			>photography</a>{" "}
+			and playing chess (1300+ rapid on Chess.com).
+		</p>
+		</div>
+
+          <!-- Professional Links -->
+          <div class="mt-8 flex flex-wrap items-center gap-6">
+            <a
+              href="https://github.com/mrasyidgpfl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sm font-medium text-[var(--link)] transition-colors hover:text-[var(--text-primary)] hover:underline"
+            >
+              GitHub ↗
+            </a>
+
+            <a
+              href="mailto:rasyid.gatrawijaya@gmail.com"
+              class="text-sm font-medium text-[var(--link)] transition-colors hover:text-[var(--text-primary)] hover:underline"
+            >
+              Email ↗
+            </a>
+          </div>
+
+          <!-- Contact -->
+          <div
+            id="contact"
+            class="mt-12 max-w-2xl scroll-mt-8 border-t border-[var(--border)] pt-8"
+          >
+            <h3
+              class="text-lg font-semibold text-[var(--text-primary)]"
+            >
+              Get in Touch
+            </h3>
+
+            <p
+              class="justified-copy mt-3 text-sm leading-7 text-[var(--text-body)]"
+            >
+              I'm open to opportunities in backend engineering,
+              platform engineering, and infrastructure.
+              Feel free to reach out about engineering roles
+              or technical collaboration.
+            </p>
+
+            <a
+              href="mailto:rasyid.gatrawijaya@gmail.com"
+              class="mt-4 inline-block text-sm font-medium text-[var(--link)] transition-colors hover:text-[var(--text-primary)] hover:underline"
+            >
+              rasyid.gatrawijaya@gmail.com ↗
+            </a>
+          </div>
+        </section>
+
+        <!-- Selected Projects -->
+        <section
+          id="projects"
+          class="scroll-mt-8 border-b border-[var(--border)] py-12"
+        >
+          <h2 class="mb-8 text-2xl font-semibold tracking-tight">
+            Selected Projects
+          </h2>
+
+          <div class="divide-y divide-[var(--divider)]">
+            {projects.map((project) => (
+              <article class="py-6 first:pt-0">
+                <div class="flex items-start justify-between gap-5">
+                  <div>
+                    <h3
+                      class="text-base font-semibold text-[var(--text-primary)]"
+                    >
+                      <span class="mr-2 text-[var(--text-muted)]">
+                        {project.number} /
+                      </span>
+                      {project.name}
+                    </h3>
+
+                    <p class="mt-1 text-sm text-[var(--text-muted)]">
+                      {project.category}
+                    </p>
+
+                    <p
+                      class="justified-copy mt-3 max-w-xl text-sm leading-6 text-[var(--text-body)]"
+                    >
+                      {project.description}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <!-- Experience -->
+        <section
+          id="experience"
+          class="scroll-mt-8 border-b border-[var(--border)] py-12"
+        >
+          <h2 class="mb-8 text-2xl font-semibold tracking-tight">
+            Experience
+          </h2>
+
+          <h3 class="text-base font-semibold">
+            Software Engineer — Shopee
+          </h3>
+
+          <p class="justified-copy mt-3 max-w-2xl text-sm leading-7 text-[var(--text-body)]">
+            Worked on backend services, distributed systems,
+            developer tooling, and observability supporting
+            large-scale applications.
+          </p>
+        </section>
+
+        <!-- Technical Skills -->
+        <section
+          id="skills"
+          class="scroll-mt-8 border-b border-[var(--border)] py-12"
+        >
+          <h2 class="mb-8 text-2xl font-semibold tracking-tight">
+            Technical Skills
+          </h2>
+
+          <div class="space-y-5">
+            {skills.map((skill) => (
+              <div class="grid gap-1 sm:grid-cols-[155px_1fr] sm:gap-5">
+                <h3
+                  class="text-sm font-semibold text-[var(--text-primary)]"
+                >
+                  {skill.category}
+                </h3>
+
+                <p
+                  class="text-sm leading-7 text-[var(--text-body)]"
+                >
+                  {skill.technologies}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
+
+      <!-- Footer -->
+      <footer
+        class="flex flex-wrap items-center justify-between gap-3 py-8 text-xs text-[var(--text-muted)]"
+      >
+        <span>© {new Date().getFullYear()} Rasyid Gatrawijaya</span>
+      </footer>
+    </div>
+
+    <!-- Theme and mobile navigation logic -->
+    <script>
+      const root = document.documentElement;
+
+      const themeToggle =
+        document.querySelector<HTMLButtonElement>("#theme-toggle");
+
+      const menuToggle =
+        document.querySelector<HTMLButtonElement>("#menu-toggle");
+
+      const mainNav =
+        document.querySelector<HTMLElement>("#main-nav");
+
+      const siteHeader =
+        document.querySelector<HTMLElement>("#site-header");
+
+      // Theme switching
+      function updateThemeButton() {
+        const dark = root.dataset.theme === "dark";
+
+        themeToggle?.setAttribute(
+          "aria-label",
+          dark ? "Switch to light mode" : "Switch to dark mode"
+        );
+
+        themeToggle?.setAttribute(
+          "aria-pressed",
+          String(dark)
+        );
+      }
+
+      updateThemeButton();
+
+      themeToggle?.addEventListener("click", () => {
+        const next =
+          root.dataset.theme === "dark" ? "light" : "dark";
+
+        root.dataset.theme = next;
+
+        try {
+          localStorage.setItem("rg-theme", next);
+        } catch {
+          // Theme still works if storage is unavailable.
+        }
+
+        updateThemeButton();
+      });
+
+      // Mobile navigation
+      let menuOpen = false;
+
+      function setMenu(open: boolean) {
+        if (!menuToggle || !mainNav) return;
+
+        menuOpen = open;
+
+        mainNav.classList.toggle("hidden", !open);
+        mainNav.classList.toggle("flex", open);
+
+        menuToggle.setAttribute("aria-expanded", String(open));
+        menuToggle.setAttribute(
+          "aria-label",
+          open ? "Close navigation menu" : "Open navigation menu"
+        );
+
+        const icon = document.querySelector("#menu-icon");
+
+        if (icon) {
+          icon.innerHTML = open
+            ? '<path d="M18 6 6 18M6 6l12 12" />'
+            : '<path d="M4 7h16M4 12h16M4 17h16" />';
+        }
+      }
+
+      menuToggle?.addEventListener("click", () => {
+        setMenu(!menuOpen);
+      });
+
+      // Close after selecting a navigation link
+      mainNav?.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => setMenu(false));
+      });
+
+      // Close when clicking outside
+      document.addEventListener("pointerdown", (event) => {
+        if (
+          menuOpen &&
+          siteHeader &&
+          !siteHeader.contains(event.target as Node)
+        ) {
+          setMenu(false);
+        }
+      });
+
+      // Close using Escape
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && menuOpen) {
+          setMenu(false);
+          menuToggle?.focus();
+        }
+      });
+
+      // Reset menu state when returning to desktop
+      window.matchMedia("(min-width: 768px)").addEventListener(
+        "change",
+        (event) => {
+          if (event.matches) setMenu(false);
+        }
+      );
+    </script>
+
+    <!-- Light / Dark palette -->
+    <style is:global>
+      :root {
+        color-scheme: light;
+
+        --page-bg: #faf9f6;
+
+        --text-primary: #172c47;
+        --text-secondary: #344e6c;
+        --text-body: #4b5563;
+        --text-muted: #697586;
+
+        --link: #315b85;
+
+        --border: #dfe3e8;
+        --divider: #e8e9e7;
+
+        --hover-bg: rgba(23, 44, 71, 0.06);
+
+        --menu-bg: rgba(250, 249, 246, 0.82);
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+
+        --page-bg: #141922;
+
+        --text-primary: #e8edf5;
+        --text-secondary: #b4c4d9;
+        --text-body: #b0bac9;
+        --text-muted: #94a3b8;
+
+        --link: #93b9e4;
+
+        --border: #303b4d;
+        --divider: #293344;
+
+        --hover-bg: rgba(255, 255, 255, 0.07);
+
+        --menu-bg: rgba(27, 34, 47, 0.82);
+      }
+
+      /* Consistent paragraph justification */
+      .justified-copy {
+        text-align: justify;
+        text-justify: inter-word;
+        text-align-last: left;
+        hyphens: auto;
+        overflow-wrap: break-word;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        transition:
+          background-color 180ms ease,
+          color 180ms ease;
+      }
+
+      /* Moon in light mode, sun in dark mode */
+      .theme-icon-sun {
+        display: none;
+      }
+
+      :root[data-theme="dark"] .theme-icon-moon {
+        display: none;
+      }
+
+      :root[data-theme="dark"] .theme-icon-sun {
+        display: block;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        body {
+          transition: none;
+        }
+      }
+    </style>
+  </body>
 </html>

@@ -1,0 +1,397 @@
+
+---
+import "../styles/global.css";
+
+// Images are stored in public/photography/ as image1.jpg ... image9.jpg.
+const photos = Array.from({ length: 9 }, (_, index) => ({
+  src: `/photography/image${index + 1}.jpg`,
+  alt: `Film photograph ${index + 1}`,
+  label: String(index + 1).padStart(2, "0"),
+}));
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Digital Film photography by Rasyid Gatrawijaya. A small personal collection."
+    />
+    <meta name="theme-color" content="#FAF9F6" />
+    <title>Digital Film Photography | Rasyid Gatrawijaya</title>
+
+    <!-- Apply the saved/system theme before the page is painted. -->
+    <script is:inline>
+      (() => {
+        let theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+
+        try {
+          const saved = localStorage.getItem("rg-theme");
+          if (saved === "dark" || saved === "light") theme = saved;
+        } catch {
+          // Storage may be unavailable; the system preference still works.
+        }
+
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-[var(--page-bg)] font-sans text-[var(--text-primary)] antialiased">
+    <div class="mx-auto max-w-5xl px-6 sm:px-10">
+      <!-- Header -->
+      <header class="flex items-center justify-between border-b border-[var(--border)] py-6">
+        <a href="/" class="text-xl font-semibold tracking-tight">RG</a>
+
+        <div class="flex items-center gap-5">
+          <a
+            href="/"
+            class="text-sm text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
+          >
+            ← Home
+          </a>
+
+          <button
+            id="theme-toggle"
+            type="button"
+            aria-label="Switch to dark mode"
+            aria-pressed="false"
+            title="Toggle colour theme"
+            class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--link)]"
+          >
+            <svg
+              class="icon-moon h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M20.985 12.486A9 9 0 0 1 11.514 3.015a9 9 0 1 0 9.47 9.47" />
+            </svg>
+            <svg
+              class="icon-sun h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M6.35 17.65l-1.42 1.42M19.07 4.93l-1.42 1.42" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <!-- Introduction -->
+        <section class="pb-10 pt-16 sm:pb-12 sm:pt-20">
+          <p class="mb-5 text-xs font-medium uppercase tracking-[0.15em] text-[var(--text-muted)]">
+            Personal / Visual Journal
+          </p>
+          <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">
+            Digital Film Photography
+          </h1>
+          <p class="mt-5 max-w-xl text-[15px] leading-7 text-[var(--text-body)]">
+            A small collection of moments captured on film, away from the keyboard.
+          </p>
+        </section>
+
+        <!-- Natural-ratio collage: portrait stays portrait, landscape stays landscape. -->
+        <section aria-label="Photography collection">
+          <div class="photo-grid">
+            {photos.map((photo, index) => (
+              <button
+                type="button"
+                class="photo-tile"
+                data-photo
+                data-full={photo.src}
+                aria-label={`Open photograph ${index + 1}`}
+              >
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                />
+                <span class="photo-label" aria-hidden="true">{photo.label}</span>
+              </button>
+            ))}
+          </div>
+          <p class="mt-4 text-xs text-[var(--text-muted)]">
+            Select a photograph to view it in full.
+          </p>
+        </section>
+      </main>
+
+      <footer class="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--border)] py-8 text-xs text-[var(--text-muted)]">
+        <span>© {new Date().getFullYear()} Rasyid Gatrawijaya</span>
+        <a href="/" class="transition-colors hover:text-[var(--text-primary)]">
+          Back to Home ↗
+        </a>
+      </footer>
+    </div>
+
+    <!-- Fullscreen lightbox -->
+    <dialog id="photo-lightbox" aria-label="Photograph viewer" class="lightbox">
+      <div class="lightbox-inner">
+        <div class="lightbox-topbar">
+          <span id="photo-counter" class="lightbox-counter">1 / {photos.length}</span>
+          <button id="close-lightbox" type="button" class="lightbox-close" aria-label="Close photograph">
+            ✕
+          </button>
+        </div>
+        <div class="lightbox-image-area">
+          <img id="lightbox-image" alt="" />
+        </div>
+        <div class="lightbox-controls">
+          <button id="previous-photo" type="button" aria-label="Previous photograph">← Previous</button>
+          <button id="next-photo" type="button" aria-label="Next photograph">Next →</button>
+        </div>
+      </div>
+    </dialog>
+
+    <script>
+      const root = document.documentElement;
+      const themeToggle = document.querySelector<HTMLButtonElement>("#theme-toggle");
+
+      function updateThemeButton() {
+        const dark = root.dataset.theme === "dark";
+        themeToggle?.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+        themeToggle?.setAttribute("aria-pressed", String(dark));
+        document.querySelector('meta[name="theme-color"]')?.setAttribute(
+          "content", dark ? "#141922" : "#FAF9F6"
+        );
+      }
+
+      updateThemeButton();
+      themeToggle?.addEventListener("click", () => {
+        const next = root.dataset.theme === "dark" ? "light" : "dark";
+        root.dataset.theme = next;
+        try {
+          localStorage.setItem("rg-theme", next);
+        } catch {
+          // The toggle still works without saved preferences.
+        }
+        updateThemeButton();
+      });
+
+      const tiles = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-photo]"));
+      const lightbox = document.querySelector<HTMLDialogElement>("#photo-lightbox");
+      const lightboxImage = document.querySelector<HTMLImageElement>("#lightbox-image");
+      const counter = document.querySelector<HTMLElement>("#photo-counter");
+      const closeButton = document.querySelector<HTMLButtonElement>("#close-lightbox");
+      const previousButton = document.querySelector<HTMLButtonElement>("#previous-photo");
+      const nextButton = document.querySelector<HTMLButtonElement>("#next-photo");
+      let currentIndex = 0;
+
+      function showPhoto(index: number) {
+        if (!lightbox || !lightboxImage || !counter || tiles.length === 0) return;
+
+        currentIndex = (index + tiles.length) % tiles.length;
+        const tile = tiles[currentIndex];
+        const src = tile.dataset.full;
+        if (!src) return;
+
+        lightboxImage.src = src;
+        lightboxImage.alt = tile.querySelector("img")?.alt || `Photograph ${currentIndex + 1}`;
+        counter.textContent = `${currentIndex + 1} / ${tiles.length}`;
+        if (!lightbox.open) lightbox.showModal();
+      }
+
+      tiles.forEach((tile, index) => {
+        tile.addEventListener("click", () => showPhoto(index));
+      });
+      closeButton?.addEventListener("click", () => lightbox?.close());
+      previousButton?.addEventListener("click", () => showPhoto(currentIndex - 1));
+      nextButton?.addEventListener("click", () => showPhoto(currentIndex + 1));
+
+      document.addEventListener("keydown", (event) => {
+        if (!lightbox?.open) return;
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          showPhoto(currentIndex - 1);
+        } else if (event.key === "ArrowRight") {
+          event.preventDefault();
+          showPhoto(currentIndex + 1);
+        }
+        // Escape is handled by the native <dialog> element.
+      });
+
+      lightbox?.addEventListener("click", (event) => {
+        if (event.target === lightbox) lightbox.close();
+      });
+    </script>
+
+    <style is:global>
+      :root {
+        color-scheme: light;
+        --page-bg: #faf9f6;
+        --text-primary: #172c47;
+        --text-secondary: #344e6c;
+        --text-body: #4b5563;
+        --text-muted: #697586;
+        --link: #315b85;
+        --border: #dfe3e8;
+        --hover-bg: rgba(23, 44, 71, 0.06);
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --page-bg: #141922;
+        --text-primary: #e8edf5;
+        --text-secondary: #b4c4d9;
+        --text-body: #b0bac9;
+        --text-muted: #94a3b8;
+        --link: #93b9e4;
+        --border: #303b4d;
+        --hover-bg: rgba(255, 255, 255, 0.07);
+      }
+
+      body {
+        transition: background-color 180ms ease, color 180ms ease;
+      }
+      .icon-sun { display: none; }
+      :root[data-theme="dark"] .icon-moon { display: none; }
+      :root[data-theme="dark"] .icon-sun { display: block; }
+
+      /* A natural-aspect-ratio masonry collage. No cropping or rotation. */
+      .photo-grid {
+        columns: 3;
+        column-gap: 12px;
+      }
+      .photo-tile {
+        position: relative;
+        display: block;
+        width: 100%;
+        margin: 0 0 12px;
+        padding: 0;
+        overflow: hidden;
+        border: 0;
+        border-radius: 3px;
+        background: var(--border);
+        cursor: zoom-in;
+        break-inside: avoid;
+      }
+      .photo-tile img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        transition: transform 450ms ease;
+      }
+      @media (hover: hover) {
+        .photo-tile:hover img { transform: scale(1.025); }
+      }
+      .photo-tile:focus-visible {
+        outline: 3px solid var(--link);
+        outline-offset: 3px;
+      }
+      .photo-label {
+        position: absolute;
+        left: 15px;
+        bottom: 14px;
+        padding: 5px 8px;
+        background: rgba(17, 24, 39, 0.36);
+        color: #fff;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        border-radius: 2px;
+        opacity: 0;
+        transition: opacity 200ms ease;
+        pointer-events: none;
+      }
+      .photo-tile:hover .photo-label,
+      .photo-tile:focus-visible .photo-label { opacity: 1; }
+
+      @media (max-width: 900px) {
+        .photo-grid { columns: 2; }
+      }
+      @media (max-width: 540px) {
+        .photo-grid { columns: 1; }
+        .photo-tile { margin-bottom: 10px; }
+        .photo-label { opacity: 1; }
+      }
+
+      /* Fullscreen lightbox (original styling retained). */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        margin: auto;
+        width: min(1100px, calc(100vw - 32px));
+        max-width: 1100px;
+        max-height: calc(100dvh - 32px);
+        overflow: hidden;
+        padding: 0;
+        border: 1px solid #303b4d;
+        border-radius: 10px;
+        background: #141922;
+        color: #e8edf5;
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+      }
+      .lightbox::backdrop {
+        background: rgba(9, 13, 20, 0.85);
+        backdrop-filter: blur(12px);
+      }
+      .lightbox-inner {
+        display: flex;
+        flex-direction: column;
+        max-height: calc(100dvh - 34px);
+      }
+      .lightbox-topbar, .lightbox-controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 14px 20px;
+      }
+      .lightbox-counter {
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        color: #b0bac9;
+      }
+      .lightbox-close, .lightbox-controls button {
+        border: 0;
+        background: transparent;
+        color: #e8edf5;
+        cursor: pointer;
+        font: inherit;
+        font-size: 13px;
+        padding: 6px;
+      }
+      .lightbox-close { font-size: 18px; }
+      .lightbox-close:hover, .lightbox-controls button:hover { color: #93b9e4; }
+      .lightbox-close:focus-visible, .lightbox-controls button:focus-visible {
+        outline: 2px solid #93b9e4;
+        outline-offset: 3px;
+      }
+      .lightbox-image-area {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 0;
+        flex: 1;
+        padding: 0 14px;
+      }
+      #lightbox-image {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: calc(100dvh - 170px);
+        object-fit: contain;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        body, .photo-tile img, .photo-label { transition: none; }
+      }
+    </style>
+  </body>
+</html>
