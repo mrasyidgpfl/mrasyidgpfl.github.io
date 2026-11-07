@@ -65,6 +65,15 @@ const skills = [
     technologies: "Prometheus · Grafana · Logging · Distributed Tracing",
   },
 ];
+
+const navLinks = [
+  { label: "About", href: "#about" },
+  { label: "Experience", href: "#experience" },
+  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
+  { label: "Photos", href: "/gallery/" },
+  { label: "Contact", href: "#contact" },
+];
 ---
 
 <!doctype html>
@@ -72,17 +81,14 @@ const skills = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <meta
       name="description"
       content="Rasyid Gatrawijaya — Software Engineer focused on backend infrastructure, distributed systems, and platform engineering."
     />
-
     <meta name="theme-color" content="#FAF9F6" />
-
     <title>Rasyid Gatrawijaya | Software Engineer</title>
 
-    <!-- Load saved theme before the page is painted -->
+    <!-- Apply theme before the page paints. -->
     <script is:inline>
       (() => {
         let theme = window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -91,10 +97,7 @@ const skills = [
 
         try {
           const saved = localStorage.getItem("rg-theme");
-
-          if (saved === "light" || saved === "dark") {
-            theme = saved;
-          }
+          if (saved === "light" || saved === "dark") theme = saved;
         } catch {
           // Fall back to system preference.
         }
@@ -108,7 +111,6 @@ const skills = [
     class="min-h-screen bg-[var(--page-bg)] font-sans text-[var(--text-primary)] antialiased"
   >
     <div class="mx-auto max-w-4xl px-6 sm:px-10">
-
       <!-- Navigation -->
       <header
         id="site-header"
@@ -121,58 +123,23 @@ const skills = [
           RG
         </a>
 
-        <!-- Navigation links -->
         <nav
           id="main-nav"
           aria-label="Main navigation"
           class="absolute inset-x-0 top-full z-40 mt-2 hidden flex-col gap-1 rounded-xl border border-[var(--border)] bg-[var(--menu-bg)] p-2 shadow-xl backdrop-blur-xl md:static md:z-auto md:ml-auto md:mt-0 md:flex md:flex-row md:items-center md:gap-6 md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-none"
         >
-          <a
-            href="#about"
-            class="rounded-lg px-4 py-3 text-sm text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)] md:px-0 md:py-0 md:hover:bg-transparent"
-          >
-            About
-          </a>
-
-          <a
-            href="#projects"
-            class="rounded-lg px-4 py-3 text-sm text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)] md:px-0 md:py-0 md:hover:bg-transparent"
-          >
-            Projects
-          </a>
-
-          <a
-            href="#experience"
-            class="rounded-lg px-4 py-3 text-sm text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)] md:px-0 md:py-0 md:hover:bg-transparent"
-          >
-            Experience
-          </a>
-
-          <a
-            href="#skills"
-            class="rounded-lg px-4 py-3 text-sm text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)] md:px-0 md:py-0 md:hover:bg-transparent"
-          >
-            Skills
-          </a>
-
-          <a
-            href="#contact"
-            class="rounded-lg px-4 py-3 text-sm text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)] md:px-0 md:py-0 md:hover:bg-transparent"
-          >
-            Contact
-          </a>
-		  <a
-			href="/gallery/"
-			class="rounded-lg px-4 py-3 text-sm text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)] md:px-0 md:py-0 md:hover:bg-transparent"
-			>
-			Photos
-		  </a>
+          {navLinks.map((link) => (
+            <a
+              href={link.href}
+              class="rounded-lg px-4 py-3 text-sm text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)] md:px-0 md:py-0 md:hover:bg-transparent"
+            >
+              {link.label}
+            </a>
+          ))}
         </nav>
 
-        <!-- Theme and mobile-menu controls -->
+        <!-- Theme and mobile menu controls -->
         <div class="ml-auto flex items-center gap-2 md:ml-4">
-
-          <!-- Light / Dark toggle -->
           <button
             id="theme-toggle"
             type="button"
@@ -181,7 +148,7 @@ const skills = [
             title="Toggle colour theme"
             class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-[var(--text-secondary)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--link)]"
           >
-            <!-- Moon: shown in light mode -->
+            <!-- Moon in light mode -->
             <svg
               class="theme-icon-moon h-5 w-5"
               xmlns="http://www.w3.org/2000/svg"
@@ -198,7 +165,7 @@ const skills = [
               <path d="M20.985 12.486A9 9 0 0 1 11.514 3.015a9 9 0 1 0 9.47 9.47" />
             </svg>
 
-            <!-- Sun: shown in dark mode -->
+            <!-- Sun in dark mode -->
             <svg
               class="theme-icon-sun h-5 w-5"
               xmlns="http://www.w3.org/2000/svg"
@@ -217,7 +184,6 @@ const skills = [
             </svg>
           </button>
 
-          <!-- Hamburger: mobile only -->
           <button
             id="menu-toggle"
             type="button"
@@ -263,40 +229,35 @@ const skills = [
             Rasyid Gatrawijaya
           </h1>
 
-          <h2
-            class="mt-4 text-xl font-normal text-[var(--text-secondary)]"
-          >
+          <h2 class="mt-4 text-xl font-normal text-[var(--text-secondary)]">
             Backend & Platform Engineer
           </h2>
 
-		<!-- Biography -->
-		<div
-		class="mt-7 max-w-2xl space-y-4 text-[15px] leading-7 text-[var(--text-body)]"
-		>
-		<p class="justified-copy">
-			I'm a software engineer focused on backend infrastructure,
-			distributed systems, and developer productivity.
-			My experience spans building scalable services,
-			improving reliability, and developing engineering tooling.
-		</p>
+          <!-- Biography -->
+          <div
+            class="mt-7 max-w-2xl space-y-4 text-[15px] leading-7 text-[var(--text-body)]"
+          >
+            <p class="justified-copy">
+              I'm a software engineer focused on backend infrastructure,
+              distributed systems, and developer productivity. My experience
+              spans building scalable services, improving reliability, and
+              developing engineering tooling.
+            </p>
 
-		<p class="justified-copy">
-			Previously a Software Engineer at Shopee.
-			I hold an MSc in Computer Science from the
-			University of Bath.
-		</p>
+            <p class="justified-copy">
+              Previously a Software Engineer at Shopee. I hold an MSc in
+              Computer Science from the University of Bath.
+            </p>
 
-		<p class="text-left">
-			Outside of engineering, I enjoy (digital) film{" "}
-			<a
-			href="/gallery/"
-			class="font-medium text-[var(--link)] underline decoration-[var(--link)]/40 underline-offset-4 transition-colors hover:text-[var(--text-primary)] hover:decoration-current"
-			>photography</a>{" "}
-			and playing chess (1300+ rapid on Chess.com).
-		</p>
-		</div>
+            <p class="text-left">
+              Outside of engineering, I enjoy (digital) film{" "}<a
+                href="/gallery/"
+                class="font-medium text-[var(--link)] underline decoration-[var(--link)]/40 underline-offset-4 transition-colors hover:text-[var(--text-primary)] hover:decoration-current"
+              >photography</a>{" "}and playing chess (1300+ rapid on Chess.com).
+            </p>
+          </div>
 
-          <!-- Professional Links -->
+          <!-- Professional links -->
           <div class="mt-8 flex flex-wrap items-center gap-6">
             <a
               href="https://github.com/mrasyidgpfl"
@@ -314,33 +275,92 @@ const skills = [
               Email ↗
             </a>
           </div>
+        </section>
 
-          <!-- Contact -->
-          <div
-            id="contact"
-            class="mt-12 max-w-2xl scroll-mt-8 border-t border-[var(--border)] pt-8"
-          >
-            <h3
-              class="text-lg font-semibold text-[var(--text-primary)]"
-            >
-              Get in Touch
-            </h3>
+        <!-- Experience -->
+        <section
+          id="experience"
+          class="scroll-mt-8 border-b border-[var(--border)] py-12"
+        >
+          <h2 class="mb-8 text-2xl font-semibold tracking-tight">
+            Experience
+          </h2>
 
-            <p
-              class="justified-copy mt-3 text-sm leading-7 text-[var(--text-body)]"
-            >
-              I'm open to opportunities in backend engineering,
-              platform engineering, and infrastructure.
-              Feel free to reach out about engineering roles
-              or technical collaboration.
-            </p>
+          <div class="divide-y divide-[var(--divider)]">
+            <!-- Shopee -->
+            <article class="pb-6">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="text-base font-semibold">
+                  Software Engineer —{" "}<a
+                    href="https://www.sea.com/products/shopee"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="company-link"
+                  >Shopee ↗</a>
+                </h3>
+                <span class="text-xs text-[var(--text-muted)]">
+                  Jun 2022 – Aug 2024
+                </span>
+              </div>
 
-            <a
-              href="mailto:rasyid.gatrawijaya@gmail.com"
-              class="mt-4 inline-block text-sm font-medium text-[var(--link)] transition-colors hover:text-[var(--text-primary)] hover:underline"
-            >
-              rasyid.gatrawijaya@gmail.com ↗
-            </a>
+              <p
+                class="justified-copy mt-3 max-w-2xl text-sm leading-7 text-[var(--text-body)]"
+              >
+                Developed and maintained backend services using Go,
+                deployed on Kubernetes and AWS. Built scalable services
+                handling approximately 3,000 QPS, alongside developer
+                tooling and observability infrastructure supporting
+                100+ engineers across 10 markets.
+              </p>
+            </article>
+
+            <!-- Manuva -->
+            <article class="py-6">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="text-base font-semibold">
+                  Software Engineer Intern —{" "}<a
+                    href="https://www.linkedin.com/company/manuvaindonesia/posts/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="company-link"
+                  >Manuva ↗</a>
+                </h3>
+                <span class="text-xs text-[var(--text-muted)]">
+                  Jun 2019 – Aug 2019
+                </span>
+              </div>
+
+              <p
+                class="justified-copy mt-3 max-w-2xl text-sm leading-7 text-[var(--text-body)]"
+              >
+                Developed marketplace features and REST APIs, supporting
+                product, pricing, and voucher functionality.
+              </p>
+            </article>
+
+            <!-- Bank Mandiri -->
+            <article class="pt-6">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 class="text-base font-semibold">
+                  Software Engineer Intern —{" "}<a
+                    href="https://www.bankmandiri.co.id/en/profil-perusahaan"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="company-link"
+                  >Bank Mandiri ↗</a>
+                </h3>
+                <span class="text-xs text-[var(--text-muted)]">
+                  Jan 2019 – Mar 2019
+                </span>
+              </div>
+
+              <p
+                class="justified-copy mt-3 max-w-2xl text-sm leading-7 text-[var(--text-body)]"
+              >
+                Developed backend services and REST APIs using Java and
+                Spring Boot for an internal banking platform.
+              </p>
+            </article>
           </div>
         </section>
 
@@ -383,76 +403,6 @@ const skills = [
           </div>
         </section>
 
-        
-		<!-- Experience -->
-		<section
-		id="experience"
-		class="scroll-mt-8 border-b border-[var(--border)] py-12"
-		>
-		<h2 class="mb-8 text-2xl font-semibold tracking-tight">
-			Experience
-		</h2>
-
-		<div class="divide-y divide-[var(--divider)]">
-
-		<!-- Shopee -->
-		<article class="pb-6">
-		<div class="flex flex-wrap items-baseline justify-between gap-2">
-			<h3 class="text-base font-semibold">
-			Software Engineer — Shopee
-			</h3>
-			<span class="text-xs text-[var(--text-muted)]">
-			Jun 2022 – Aug 2024
-			</span>
-		</div>
-
-		<p class="justified-copy mt-3 max-w-2xl text-sm leading-7 text-[var(--text-body)]">
-			Developed and maintained backend services using Go,
-			deployed on Kubernetes and AWS. Built scalable services
-			handling approximately 3,000 QPS, alongside developer
-			tooling and observability infrastructure supporting
-			100+ engineers across 10 markets.
-		</p>
-		</article>
-
-		<!-- Manuva -->
-		<article class="py-6">
-		<div class="flex flex-wrap items-baseline justify-between gap-2">
-			<h3 class="text-base font-semibold">
-			Software Engineer Intern — Manuva
-			</h3>
-			<span class="text-xs text-[var(--text-muted)]">
-			Jun 2019 – Aug 2019
-			</span>
-		</div>
-
-		<p class="justified-copy mt-3 max-w-2xl text-sm leading-7 text-[var(--text-body)]">
-			Developed marketplace features and REST API, supporting product,
-			pricing, and voucher functionality.
-		</p>
-		</article>
-
-		<!-- Bank Mandiri -->
-		<article class="pt-6">
-		<div class="flex flex-wrap items-baseline justify-between gap-2">
-			<h3 class="text-base font-semibold">
-			Software Engineer Intern — Bank Mandiri
-			</h3>
-			<span class="text-xs text-[var(--text-muted)]">
-			Jan 2019 – Mar 2019
-			</span>
-		</div>
-
-		<p class="justified-copy mt-3 max-w-2xl text-sm leading-7 text-[var(--text-body)]">
-			Developed backend services and REST APIs using
-			Java and Spring Boot for an internal banking platform.
-		</p>
-		</article>
-
-	</div>
-	</section>
-
-
         <!-- Technical Skills -->
         <section
           id="skills"
@@ -465,26 +415,42 @@ const skills = [
           <div class="space-y-5">
             {skills.map((skill) => (
               <div class="grid gap-1 sm:grid-cols-[155px_1fr] sm:gap-5">
-                <h3
-                  class="text-sm font-semibold text-[var(--text-primary)]"
-                >
+                <h3 class="text-sm font-semibold text-[var(--text-primary)]">
                   {skill.category}
                 </h3>
-
-                <p
-                  class="text-sm leading-7 text-[var(--text-body)]"
-                >
+                <p class="text-sm leading-7 text-[var(--text-body)]">
                   {skill.technologies}
                 </p>
               </div>
             ))}
           </div>
         </section>
+
+        <!-- Contact -->
+        <section id="contact" class="scroll-mt-8 py-12">
+          <h2 class="mb-6 text-2xl font-semibold tracking-tight">
+            Get in Touch
+          </h2>
+
+          <p
+            class="justified-copy max-w-2xl text-sm leading-7 text-[var(--text-body)]"
+          >
+            I'm open to opportunities in backend engineering, platform
+            engineering, and infrastructure. Feel free to reach out about
+            engineering roles or technical collaboration.
+          </p>
+
+          <a
+            href="mailto:rasyid.gatrawijaya@gmail.com"
+            class="mt-4 inline-block text-sm font-medium text-[var(--link)] transition-colors hover:text-[var(--text-primary)] hover:underline"
+          >
+            rasyid.gatrawijaya@gmail.com ↗
+          </a>
+        </section>
       </main>
 
-      <!-- Footer -->
       <footer
-        class="flex flex-wrap items-center justify-between gap-3 py-8 text-xs text-[var(--text-muted)]"
+        class="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border)] py-8 text-xs text-[var(--text-muted)]"
       >
         <span>© {new Date().getFullYear()} Rasyid Gatrawijaya</span>
       </footer>
@@ -493,18 +459,12 @@ const skills = [
     <!-- Theme and mobile navigation logic -->
     <script>
       const root = document.documentElement;
-
       const themeToggle =
         document.querySelector<HTMLButtonElement>("#theme-toggle");
-
       const menuToggle =
         document.querySelector<HTMLButtonElement>("#menu-toggle");
-
-      const mainNav =
-        document.querySelector<HTMLElement>("#main-nav");
-
-      const siteHeader =
-        document.querySelector<HTMLElement>("#site-header");
+      const mainNav = document.querySelector<HTMLElement>("#main-nav");
+      const siteHeader = document.querySelector<HTMLElement>("#site-header");
 
       // Theme switching
       function updateThemeButton() {
@@ -514,25 +474,22 @@ const skills = [
           "aria-label",
           dark ? "Switch to light mode" : "Switch to dark mode"
         );
-
-        themeToggle?.setAttribute(
-          "aria-pressed",
-          String(dark)
-        );
+        themeToggle?.setAttribute("aria-pressed", String(dark));
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute("content", dark ? "#141922" : "#FAF9F6");
       }
 
       updateThemeButton();
 
       themeToggle?.addEventListener("click", () => {
-        const next =
-          root.dataset.theme === "dark" ? "light" : "dark";
-
+        const next = root.dataset.theme === "dark" ? "light" : "dark";
         root.dataset.theme = next;
 
         try {
           localStorage.setItem("rg-theme", next);
         } catch {
-          // Theme still works if storage is unavailable.
+          // Theme still works without persistent storage.
         }
 
         updateThemeButton();
@@ -545,10 +502,8 @@ const skills = [
         if (!menuToggle || !mainNav) return;
 
         menuOpen = open;
-
         mainNav.classList.toggle("hidden", !open);
         mainNav.classList.toggle("flex", open);
-
         menuToggle.setAttribute("aria-expanded", String(open));
         menuToggle.setAttribute(
           "aria-label",
@@ -556,7 +511,6 @@ const skills = [
         );
 
         const icon = document.querySelector("#menu-icon");
-
         if (icon) {
           icon.innerHTML = open
             ? '<path d="M18 6 6 18M6 6l12 12" />'
@@ -564,16 +518,12 @@ const skills = [
         }
       }
 
-      menuToggle?.addEventListener("click", () => {
-        setMenu(!menuOpen);
-      });
+      menuToggle?.addEventListener("click", () => setMenu(!menuOpen));
 
-      // Close after selecting a navigation link
       mainNav?.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", () => setMenu(false));
       });
 
-      // Close when clicking outside
       document.addEventListener("pointerdown", (event) => {
         if (
           menuOpen &&
@@ -584,7 +534,6 @@ const skills = [
         }
       });
 
-      // Close using Escape
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && menuOpen) {
           setMenu(false);
@@ -592,7 +541,6 @@ const skills = [
         }
       });
 
-      // Reset menu state when returning to desktop
       window.matchMedia("(min-width: 768px)").addEventListener(
         "change",
         (event) => {
@@ -605,51 +553,50 @@ const skills = [
     <style is:global>
       :root {
         color-scheme: light;
-
         --page-bg: #faf9f6;
-
         --text-primary: #172c47;
         --text-secondary: #344e6c;
         --text-body: #4b5563;
         --text-muted: #697586;
-
         --link: #315b85;
-
         --border: #dfe3e8;
         --divider: #e8e9e7;
-
         --hover-bg: rgba(23, 44, 71, 0.06);
-
         --menu-bg: rgba(250, 249, 246, 0.82);
       }
 
       :root[data-theme="dark"] {
         color-scheme: dark;
-
         --page-bg: #141922;
-
         --text-primary: #e8edf5;
         --text-secondary: #b4c4d9;
         --text-body: #b0bac9;
         --text-muted: #94a3b8;
-
         --link: #93b9e4;
-
         --border: #303b4d;
         --divider: #293344;
-
         --hover-bg: rgba(255, 255, 255, 0.07);
-
         --menu-bg: rgba(27, 34, 47, 0.82);
       }
 
-      /* Consistent paragraph justification */
       .justified-copy {
         text-align: justify;
         text-justify: inter-word;
         text-align-last: left;
         hyphens: auto;
         overflow-wrap: break-word;
+      }
+
+      .company-link {
+        color: var(--link);
+        text-decoration: none;
+        transition: color 180ms ease;
+      }
+
+      .company-link:hover {
+        color: var(--text-primary);
+        text-decoration: underline;
+        text-underline-offset: 3px;
       }
 
       html {
@@ -662,7 +609,6 @@ const skills = [
           color 180ms ease;
       }
 
-      /* Moon in light mode, sun in dark mode */
       .theme-icon-sun {
         display: none;
       }
