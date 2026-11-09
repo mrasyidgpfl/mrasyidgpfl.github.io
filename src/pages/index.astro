@@ -119,11 +119,12 @@ const navLinks = [
     class="min-h-screen bg-[var(--page-bg)] font-sans text-[var(--text-primary)] antialiased"
   >
     <div class="mx-auto max-w-4xl px-6 sm:px-10">
-      <!-- Navigation -->
-      <header
-        id="site-header"
-        class="relative flex items-center justify-between gap-4 border-b border-[var(--border)] py-6"
-      >
+        <!-- Navigation -->
+        <header
+          id="site-header"
+          class="sticky top-0 z-50 -mx-6 flex items-center justify-between gap-4 border-b border-[var(--border)] bg-[var(--menu-bg)] px-6 py-4 backdrop-blur-xl sm:-mx-10 sm:px-10"
+        >
+
         <a
           href="/"
           class="text-xl font-semibold tracking-tight text-[var(--text-primary)]"
@@ -131,11 +132,13 @@ const navLinks = [
           RG
         </a>
 
-        <nav
-          id="main-nav"
-          aria-label="Main navigation"
-          class="absolute inset-x-0 top-full z-40 mt-2 hidden flex-col gap-1 rounded-xl border border-[var(--border)] bg-[var(--menu-bg)] p-2 shadow-xl backdrop-blur-xl md:static md:z-auto md:ml-auto md:mt-0 md:flex md:flex-row md:items-center md:gap-6 md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-none"
-        >
+
+      <nav
+        id="main-nav"
+        aria-label="Main navigation"
+        class="absolute inset-x-0 top-full z-40 mt-2 hidden flex-col gap-1 rounded-xl border border-[var(--border)] bg-[var(--mobile-menu-bg)] p-2 shadow-xl backdrop-blur-xl md:static md:z-auto md:ml-auto md:mt-0 md:flex md:flex-row md:items-center md:gap-6 md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-none"
+      >
+
           {navLinks.map((link) => (
             <a
               href={link.href}
@@ -223,7 +226,7 @@ const navLinks = [
         <!-- About / Hero -->
         <section
           id="about"
-          class="scroll-mt-8 border-b border-[var(--border)] py-16 sm:py-20"
+          class="scroll-mt-24 border-b border-[var(--border)] py-16 sm:py-20"
         >
           <p
             class="mb-5 text-xs font-medium uppercase tracking-[0.15em] text-[var(--text-muted)]"
@@ -585,6 +588,7 @@ const navLinks = [
         --divider: #e8e9e7;
         --hover-bg: rgba(23, 44, 71, 0.06);
         --menu-bg: rgba(250, 249, 246, 0.82);
+        --mobile-menu-bg: rgba(250, 249, 246, 0.97);
       }
 
       :root[data-theme="dark"] {
@@ -599,6 +603,7 @@ const navLinks = [
         --divider: #293344;
         --hover-bg: rgba(255, 255, 255, 0.07);
         --menu-bg: rgba(27, 34, 47, 0.82);
+        --mobile-menu-bg: rgba(27, 34, 47, 0.97);
       }
 
       .justified-copy {
